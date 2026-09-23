@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Una carta para ti · Cena de grado de Mariana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--blush:#f3dfdc;--powder:#dde8ee;--lav:#e6dff0;--champ:#f1e6d6;--paper:#fffaf6;--ink:#5b4a4c;--rose:#b98486;--line:#e6d3d0}
+html{scroll-padding-top:env(safe-area-inset-top,0px);color-scheme:light}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100vh;color:var(--ink);background:#f6e6e4;font:400 1.3rem/1.65 "Cormorant Garamond",Georgia,serif;overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+/* destellos de fondo */
+.bg i{position:fixed;font-style:normal;color:#fff;opacity:.0;animation:tw 4s ease-in-out infinite;pointer-events:none;text-shadow:0 0 8px #fff}
+@keyframes tw{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:.9;transform:scale(1)}}
+.sp{position:fixed;z-index:50;pointer-events:none;font-style:normal;line-height:1;animation:fly .9s ease-out forwards;text-shadow:0 0 6px #fff}
+@keyframes fly{from{opacity:1;transform:translate(-50%,-50%) scale(.6)}to{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.3) rotate(120deg)}}
+/* sobre */
+#intro{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;background:linear-gradient(160deg,#f9dfe5,#fbe9ec 35%,#eaf3fa 70%,#d9e9f6);transition:opacity .9s ease,visibility .9s}
+#intro.gone{opacity:0;visibility:hidden}
+.env{position:relative;width:min(320px,80vw);aspect-ratio:3/2;margin-top:60px;filter:drop-shadow(0 20px 24px rgba(120,80,100,.25))}
+.env>*{position:absolute}
+.back{inset:0;background:#e9d5d8;border-radius:6px}
+.peek{left:9%;right:9%;top:8%;height:75%;background:var(--paper);border-radius:3px;z-index:1;transition:transform .9s .55s ease;padding:16px;font:400 1.9rem/1 "Pinyon Script",cursive;color:var(--rose)}
+.front{inset:0;z-index:2;background:linear-gradient(135deg,#f7e8e8,#efdadd);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);border-radius:6px}
+.flap{left:0;right:0;top:0;height:60%;z-index:3;background:linear-gradient(#e8d0d5,#dcc3ca);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .7s ease}
+.seal{left:50%;top:50%;z-index:4;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:0;background:radial-gradient(circle at 35% 30%,#e9b9bf,#c98e97);color:#fff;font:400 2rem/1 "Pinyon Script",cursive;box-shadow:0 6px 14px rgba(150,90,100,.4);animation:beat 1.8s ease-in-out infinite;transition:opacity .4s}
+@keyframes beat{50%{transform:scale(1.1)}}
+.seal:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.open .flap{z-index:0;transform:rotateX(180deg)}
+.open .peek{transform:translateY(-55%)}
+.open .seal{opacity:0;pointer-events:none}
+.hint{font-style:italic;font-size:1.4rem;margin:0;text-align:center}
+/* carta */
+main{max-width:600px;margin:0 auto;padding:48px 16px 64px}
+.paper{background:var(--paper);border-radius:6px;padding:56px 36px 44px;box-shadow:0 1px 0 #fff inset,0 18px 50px -20px rgba(120,80,90,.35);opacity:0;transform:translateY(18px);transition:opacity 1s .3s,transform 1s .3s}
+.shown .paper{opacity:1;transform:none}
+.greet{font:400 2.6rem/1.1 "Pinyon Script",cursive;color:var(--rose);margin:0 0 28px}
+p{margin:0 0 1.15em}
+.note{display:block;width:100%;margin:36px 0;padding:22px 24px;background:#e8f1f8;border:0;border-radius:4px;transform:rotate(-1deg);text-align:center;transition:transform .3s}
+.note:hover{transform:rotate(1deg) scale(1.02)}
+.note:focus-visible{outline:2px solid var(--rose);outline-offset:4px}
+.note small{display:block;font-size:1rem;font-style:italic;opacity:.75;margin-bottom:8px}
+.note q{font:italic 500 1.65rem/1.3 "Cormorant Garamond",Georgia,serif;quotes:none}
+.tap{display:block;font-size:.95rem;font-style:italic;opacity:.6;margin-top:10px}
+.sign{margin:36px 0 0;font-style:italic}
+.sign span{display:block;font:400 2.8rem/1.2 "Pinyon Script",cursive;color:var(--rose);margin-top:4px}
+.when{margin:44px 0 0;border-top:1px solid var(--line)}
+.when div{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.when dt{font-style:italic;opacity:.75}
+.when dd{margin:0;text-align:right;font-weight:500;font-size:1.4rem;line-height:1.25}
+.when dd small{display:block;font-weight:400;font-size:1.1rem;opacity:.8}
+.count{text-align:center;font-style:italic;margin:28px 0 0}
+.rsvp{position:relative;display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;min-height:64px}
+.btn{flex:1 1 200px;text-align:center;padding:13px 18px;border-radius:999px;border:0;text-decoration:none;font-size:1.2rem;font-weight:500;color:var(--ink);background:var(--powder);transition:transform .25s,background .2s}
+.btn.yes{background:linear-gradient(135deg,#f3c9cf,#e3c8ec);box-shadow:0 8px 18px -8px rgba(185,132,134,.7)}
+.btn.yes:hover{transform:scale(1.05) rotate(-1deg)}
+.btn.shy{background:var(--champ);transition:transform .35s cubic-bezier(.3,1.6,.5,1),background .2s}
+.btn:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+.extra{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+.extra .btn:hover{background:var(--lav);transform:translateY(-2px)}
+.reply{text-align:center;font:400 1.9rem/1.3 "Pinyon Script",cursive;color:var(--rose);margin:18px 0 0;min-height:2.4em}
+@media(max-width:480px){.paper{padding:44px 22px 34px}body{font-size:1.2rem}}
+@media(prefers-reduced-motion:reduce){.paper,#intro,.peek,.flap{transition:none}.seal,.bg i{animation:none}}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+
+<div id="intro">
+  <div class="env" id="env">
+    <div class="back"></div>
+    <div class="peek">Para ti,</div>
+    <div class="front"></div>
+    <div class="flap"></div>
+    <button class="seal" id="seal" aria-label="Abrir la carta">M</button>
+  </div>
+  <p class="hint">Tienes una carta. Toca el sello.</p>
+</div>
+
+<main id="main">
+<article class="paper">
+  <p class="greet">Para ti,</p>
+  <p>Un día de junio de 2021, cuando apenas empezaba mi carrera, me escribí una promesa para no olvidarla:</p>
+  <button class="note" id="note" aria-label="Mi promesa">
+    <small>8 de junio de 2021, 1:57 p. m.</small>
+    <q>Me voy a graduar como ingeniera de sistemas. Nunca, nunca tiraré la toalla.</q>
+  </button>
+  <p>Hubo noches largas, códigos que no querían funcionar y días en que dudé. Pero seguí, y hoy ese mensaje se volvió verdad.</p>
+  <p>No quiero celebrarlo sin las personas que quiero. Me haría muy feliz que te sientes a mi mesa, brindemos y me acompañes en una de las noches más bonitas de mi vida.</p>
+  <p class="sign">Con todo mi cariño,<span>Mariana Rodríguez</span></p>
+
+  <dl class="when">
+    <div><dt>Fecha</dt><dd>Viernes 25 de septiembre</dd></div>
+    <div><dt>Hora</dt><dd>7:30 p. m.</dd></div>
+    <div><dt>Lugar</dt><dd>Déjame que te cuente<small>Cra. 55 #74-95</small></dd></div>
+  </dl>
+  <p class="count" id="count"></p>
+
+  <div class="extra">
+    <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=D%C3%A9jame+que+te+cuente+Cra.+55+%2374-95">Ver cómo llegar</a>
+    <a class="btn" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Cena+de+grado+de+Mariana+Rodr%C3%ADguez&dates=20260926T003000Z/20260926T040000Z&location=D%C3%A9jame+que+te+cuente,+Cra.+55+%2374-95">Guardar la fecha</a>
+  </div>
+</article>
+</main>
+
+<script>
+var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+var COL=["#e7b0ba","#c7b4e6","#f0d59e","#a9c6e0","#ffffff"],SH=["✦","✧","✨","·","♡"];
+function burst(x,y,n){if(reduce)n=Math.min(n,4);
+  for(var i=0;i<n;i++){var s=document.createElement("i"),a=Math.random()*6.28,r=40+Math.random()*90;
+    s.className="sp";s.textContent=SH[Math.floor(Math.random()*SH.length)];
+    s.style.left=x+"px";s.style.top=y+"px";s.style.color=COL[Math.floor(Math.random()*COL.length)];
+    s.style.fontSize=(12+Math.random()*16)+"px";
+    s.style.setProperty("--dx",Math.cos(a)*r+"px");s.style.setProperty("--dy",Math.sin(a)*r+"px");
+    document.body.appendChild(s);setTimeout(function(e){e.remove()},950,s)}}
+function center(el){var b=el.getBoundingClientRect();return[b.left+b.width/2,b.top+b.height/2]}
+/* estrellitas de fondo */
+var bg=document.querySelector(".bg");
+for(var i=0;i<26;i++){var s=document.createElement("i");s.textContent=i%3?"✦":"✧";
+  s.style.left=Math.random()*100+"vw";s.style.top=Math.random()*100+"vh";
+  s.style.fontSize=(8+Math.random()*14)+"px";s.style.animationDelay=(Math.random()*4)+"s";
+  s.style.animationDuration=(3+Math.random()*3)+"s";bg.appendChild(s)}
+/* abrir sobre */
+var opened=false;
+document.getElementById("seal").addEventListener("click",function(e){
+  if(opened)return;opened=true;
+  var c=center(this);burst(c[0],c[1],22);
+  document.getElementById("env").classList.add("open");
+  setTimeout(function(){document.getElementById("intro").classList.add("gone");document.body.classList.add("shown");
+    var p=document.querySelector(".paper");window.scrollTo(0,0)},reduce?50:1700);
+  setTimeout(function(){burst(innerWidth/2,innerHeight*.3,18)},reduce?100:1900);
+});
+/* promesa brillante */
+document.getElementById("note").addEventListener("click",function(){var c=center(this);burst(c[0],c[1],26)});
+/* estela con el dedo o el mouse */
+var last=0;
+addEventListener("pointermove",function(e){var n=Date.now();if(n-last>70&&opened){last=n;burst(e.clientX,e.clientY,1)}});
+document.querySelectorAll(".extra .btn").forEach(function(a){a.addEventListener("click",function(e){burst(e.clientX||center(a)[0],e.clientY||center(a)[1],14)})});
+/* cuenta regresiva */
+var t=new Date("2026-09-25T19:30:00-05:00").getTime(),cn=document.getElementById("count");
+function k(){var d=t-Date.now();if(d<=0){cn.textContent="Hoy es la noche. Te espero.";return}
+var n=Math.floor(d/864e5),h=Math.floor(d%864e5/36e5);
+cn.textContent="Faltan "+n+(n==1?" día":" días")+" y "+h+" horas para vernos."}
+k();setInterval(k,60000);
+</script>
+</body>
+</html>
